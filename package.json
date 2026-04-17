@@ -1,0 +1,46 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-typescript": "^7.28.5",
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/supertest": "^7.2.0",
+    "babel-jest": "^30.3.0",
+    "git-commit-msg-linter": "^5.0.8",
+    "husky": "^9.1.7",
+    "jest": "^30.3.0",
+    "sequelize-cli": "^6.6.5",
+    "supertest": "^7.2.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  },
+  "scripts": {
+    "test": "dotenv -e .env -- jest --runInBand",
+    "test:all": "dotenv -e .env -- jest --runInBand",
+    "test:unit": "dotenv -e .env -- jest --runInBand --config ./jest.config.unit.ts",
+    "test:integration": "dotenv -e .env -- jest --runInBand --config ./jest.config.integration.ts",
+    "prepare": "husky",
+    "start:dev": "dotenv -e .env -- tsx watch ./src/server.ts",
+    "db:create": "dotenv -e .env npx sequelize db:create",
+    "db:migrate": "dotenv -e .env npx sequelize db:migrate",
+    "predb:reset": "dotenv -e .env npx sequelize db:migrate:undo:all",
+    "db:reset": "dotenv -e .env npx sequelize db:migrate",
+    "postdb:reset": "dotenv -e .env npx sequelize db:seed:all"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "dotenv-cli": "^11.0.0",
+    "email-validator": "^2.0.4",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
+  }
+}

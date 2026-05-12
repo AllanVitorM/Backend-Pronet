@@ -12,12 +12,11 @@ class ContratoRepository extends Model<
   InferCreationAttributes<ContratoRepository>
 > {
   declare id: CreationOptional<number>;
-  declare cliente: string;
-  declare descricaoContrato: string;
-  declare tipoContrato: string;
-  declare dataInicio: Date;
-  declare dataFinal: Date;
-  declare valorTotal: number;
+  declare escopo_contratual: string;
+  declare valor_total: number;
+  declare data_inicio: Date;
+  declare data_fim: Date;
+  declare status_contratual: string;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -30,29 +29,25 @@ ContratoRepository.init(
       primaryKey: true,
       allowNull: false,
     },
-    cliente: {
-      type: DataTypes.STRING,
+    escopo_contratual: {
+      type: DataTypes.TEXT("long"),
       allowNull: false,
     },
-    descricaoContrato: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    tipoContrato: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    dataInicio: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    dataFinal: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    valorTotal: {
+    valor_total: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
+    },
+    data_inicio: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    data_fim: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    status_contratual: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

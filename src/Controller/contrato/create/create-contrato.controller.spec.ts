@@ -15,24 +15,37 @@ const makeSut = (): TypeSut => {
 const getData = (): any => {
   return {
     cliente: "any_Cliente",
-    descricaoContrato: "any_descricaoContrato",
+    escopo_contratual: "any_descricaoContrato",
     tipoContrato: "any_tipoContrato",
-    dataInicio: "17/04/2026",
-    dataFinal: "29/04/2026",
-    valorTotal: 2000.00
+    data_inicio: "2026-04-17",
+    data_fim: "2026-04-29",
+    valor_total: 20000.00
   }
 }
 
 describe("create-contrato.controller", () => {
   it("Deve retornar statusCode 400 caso o campo cliente não seja preenchido", async() => {
     const {sut} = makeSut();
-    const {cliente, ...body} = getData();
+    const {escopo_contratual, ...body} = getData();
 
     const httpRequest: HttpRequest = {
       body: body,
     }
     const httpResponse: HttpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body.message).toBe("O campo cliente deve ser preenchido corretamente")
+    expect(httpResponse.body.message).toBe("É preciso adicionar um escopo contratual")
+  })
+  it("Deve retornar statusCode 200, criando o contrato", async() =>{
+    const {sut} = makeSut();
+    const body = getData();
+
+    const httpRequest: HttpRequest = {
+      body: body,
+    }
+
+    const httpResponse: HttpResponse = await sut.handle(httpRequest);
+    console.log(httpResponse.body.message);
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body.message).toBe("Contrato cadastrado com sucesso.")
   })
 })

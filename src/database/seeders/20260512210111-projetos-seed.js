@@ -12,12 +12,15 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Contrato', [{
-      escopo_contratual: 'Contrato de prestação de serviços',
-      valor_total: 1000.00,
-      data_inicio: new Date(),
-      data_fim: new Date(),
-      status_contratual: "",
+    await queryInterface.bulkInsert('Projetos', [{
+      nome: "any_nome",
+      data_inicio_planejada: new Date(),
+      data_fim_planejada: new Date(),
+      status: "any_status",
+      numero_pedido: 999999,
+      ART: 9999999999999,
+      data_inicio_real: new Date(),
+      data_fim_real: new Date(),
       createdAt: new Date(),
       updatedAt: new Date()
     }])
@@ -30,6 +33,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Contrato', null, {});
+    await queryInterface.bulkDelete('Projetos', null, {})
   }
 };

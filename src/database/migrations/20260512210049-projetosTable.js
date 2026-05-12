@@ -1,7 +1,5 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -11,31 +9,43 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('Contrato', {
+    await queryInterface.createTable('Projetos', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
-      },
-      escopo_contratual: {
-        type: Sequelize.TEXT("long"),
-        allowNull: false
-      },
-      valor_total: {
-        type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
-      data_inicio: {
+      nome: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      data_inicio_planejada: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      data_fim: {
+      data_fim_planejada: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      status_contratual: {
-        type: DataTypes.STRING,
+      status: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      numero_pedido: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      ART: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      data_inicio_real: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      data_fim_real: {
+        type: Sequelize.DATE,
         allowNull: true,
       },
       createdAt: {
@@ -46,7 +56,6 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       }
-
     })
   },
 
@@ -57,6 +66,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('Contrato')
+    await queryInterface.dropTable('Projetos')
   }
 };

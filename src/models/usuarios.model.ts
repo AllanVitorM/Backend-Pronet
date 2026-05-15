@@ -11,18 +11,19 @@ class UsuarioRepository extends Model<
   InferAttributes<UsuarioRepository>,
   InferCreationAttributes<UsuarioRepository>
 > {
-  declare idUsuario: CreationOptional<number>;
+  declare id: CreationOptional<number>;
   declare idColaborador: number | null;
   declare nome: string;
   declare email: string;
   declare senha: string;
+  declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
 UsuarioRepository.init(
   {
-    idUsuario: {
+    id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -43,6 +44,11 @@ UsuarioRepository.init(
     senha: {
       type: DataTypes.STRING(45),
       allowNull: false,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     createdAt: { type: DataTypes.DATE, allowNull: false },
     updatedAt: { type: DataTypes.DATE, allowNull: false },

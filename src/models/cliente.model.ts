@@ -7,20 +7,21 @@ import {
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
 
-class Cliente extends Model<
-  InferAttributes<Cliente>,
-  InferCreationAttributes<Cliente>
+class ClienteRepository extends Model<
+  InferAttributes<ClienteRepository>,
+  InferCreationAttributes<ClienteRepository>
 > {
-  declare idCliente: CreationOptional<number>;
+  declare id: CreationOptional<number>;
   declare nome: string;
   declare descricao: string;
+  declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-Cliente.init(
+ClienteRepository.init(
   {
-    idCliente: {
+    id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -28,11 +29,16 @@ Cliente.init(
     },
     nome: {
       type: DataTypes.STRING(45),
-      allowNull: true,   // conforme sua modelagem (sem NOT NULL explícita)
+      allowNull: true,
     },
     descricao: {
       type: DataTypes.STRING(45),
       allowNull: true,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -46,7 +52,7 @@ Cliente.init(
   {
     sequelize: SequelizeHelper.sequelize,
     tableName: "Cliente",
-  }
+  },
 );
 
-export default Cliente;
+export default ClienteRepository;

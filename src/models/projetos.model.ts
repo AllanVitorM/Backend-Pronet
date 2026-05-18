@@ -28,7 +28,7 @@ class ProjetoRepository extends Model<
 ProjetoRepository.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,

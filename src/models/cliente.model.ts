@@ -22,7 +22,7 @@ class ClienteRepository extends Model<
 ClienteRepository.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,

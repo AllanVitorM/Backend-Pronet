@@ -27,14 +27,14 @@ class ContratoRepository extends Model<
 ContratoRepository.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,
     },
     idCliente: {
       type: DataTypes.BIGINT,
-      allowNull: false, 
+      allowNull: false,
     },
     escopo_contratual: {
       type: DataTypes.TEXT("long"),

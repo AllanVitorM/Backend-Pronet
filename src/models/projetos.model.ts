@@ -20,6 +20,7 @@ class ProjetoRepository extends Model<
   declare ART: string;
   declare data_inicio_real: Date | null;
   declare data_fim_real: Date | null;
+  declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -63,6 +64,11 @@ ProjetoRepository.init(
     data_fim_real: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     createdAt: {
       type: DataTypes.DATE,

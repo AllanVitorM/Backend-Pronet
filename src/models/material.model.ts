@@ -11,20 +11,21 @@ class MaterialRepository extends Model<
   InferAttributes<MaterialRepository>,
   InferCreationAttributes<MaterialRepository>
 > {
-  declare idMaterial: CreationOptional<number>;
+  declare id: CreationOptional<number>;
   declare nome_material: string;
   declare descricao: string | null;
   declare codigo_produto: string | null;
   declare valor_unitario_cotado: number | null;
   declare valor_unitario_adquirido: number | null;
   declare unidade_medida: string;
+  declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
 MaterialRepository.init(
   {
-    idMaterial: {
+    id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -53,6 +54,11 @@ MaterialRepository.init(
     unidade_medida: {
       type: DataTypes.STRING(45),
       allowNull: false,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     createdAt: { type: DataTypes.DATE, allowNull: false },
     updatedAt: { type: DataTypes.DATE, allowNull: false },

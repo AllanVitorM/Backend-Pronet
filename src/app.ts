@@ -2,6 +2,7 @@ import express, {json} from "express";
 import cors from "cors";
 import contratoRouter from "./Controller/contrato/contrato.router";
 import projetosRouter from "./Controller/projetos/projetos.router";
+import clienteRouter from './Controller/cliente/cliente.router';
 
 class Application {
   public application: express.Application;
@@ -20,6 +21,7 @@ class Application {
   private routers(){
     this.application.use("/contrato/", contratoRouter)
     this.application.use("/projetos/", projetosRouter)
+    this.application.use("/cliente/", clienteRouter)
   }
 }
 

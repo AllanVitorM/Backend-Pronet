@@ -4,6 +4,7 @@ import contratoRouter from "./Controller/contrato/contrato.router";
 import projetosRouter from "./Controller/projetos/projetos.router";
 import usuariosRouter from "./Controller/usuarios/usuarios.router";
 import materiaisRouter from "./Controller/materiais/materiais.router";
+import atividadesRouter from "./Controller/atividades/atividades.router";
 
 class Application {
   public application: express.Application;
@@ -24,6 +25,7 @@ class Application {
     this.application.use("/projetos/", projetosRouter)
     this.application.use("/usuarios/", usuariosRouter)
     this.application.use("/materiais/", materiaisRouter)
+    this.application.use("/atividades/", atividadesRouter)
     
   }
 }

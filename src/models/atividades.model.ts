@@ -6,10 +6,14 @@ import {
   CreationOptional,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
+import ProjetoRepository from "./projetos.model";
 
-class AtividadesRepository extends Model<InferAttributes<AtividadesRepository>, InferCreationAttributes<AtividadesRepository>> {
+class AtividadesRepository extends Model<
+  InferAttributes<AtividadesRepository>,
+  InferCreationAttributes<AtividadesRepository>
+> {
   declare id: CreationOptional<number>;
-  declare idProjetos: number;
+  declare idProjeto: number;
   declare idAtividadeDependencias: number;
   declare idMarco: number;
   declare nome: string;
@@ -24,74 +28,87 @@ class AtividadesRepository extends Model<InferAttributes<AtividadesRepository>, 
   declare updatedAt: CreationOptional<Date>;
 }
 
-AtividadesRepository.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
+AtividadesRepository.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    idProjeto: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idAtividadeDependencias: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idMarco: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    data_inicio_planejada: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    data_fim_planejada: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    progresso: {
+      type: DataTypes.DECIMAL(5, 2),
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 100,
+      },
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    data_inicio_real: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    data_fim_real: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
-  idProjetos: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+  {
+    sequelize: SequelizeHelper.sequelize,
+    tableName: "Atividades",
   },
-  idAtividadeDependencias: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  idMarco: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  nome: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  data_inicio_planejada: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  data_fim_planejada: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  progresso: {
-    type: DataTypes.DECIMAL(5,2),
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0,
-      max: 100,
-    }
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  data_inicio_real: {
-    type: DataTypes.DATE,
-    allowNull: true
-  },
-  data_fim_real: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-  isDeleted: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  }
-}, {
-  sequelize: SequelizeHelper.sequelize,
-  tableName: "Atividades",
+);
+
+ProjetoRepository.hasMany(AtividadesRepository, {
+  foreignKey: "idProjeto",
+  as: "atividades"
+});
+
+AtividadesRepository.belongsTo(ProjetoRepository, {
+  foreignKey: "idProjeto",
+  as: "projeto"
 })
 
 export default AtividadesRepository;

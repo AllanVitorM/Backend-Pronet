@@ -6,7 +6,7 @@ import {
 import { CreateAtividadesService } from "../../../Service/atividades.service";
 import { badRequest, success } from "../../../helpers";
 
-export class AtividadesController implements Controller {
+export class CreateAtividadesController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { body } = httpRequest;

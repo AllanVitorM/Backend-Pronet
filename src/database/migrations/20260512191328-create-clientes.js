@@ -3,17 +3,24 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Cliente', {
-      idCliente: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
       nome: {
-        type: Sequelize.STRING(45)
+        type: Sequelize.STRING(45),
+        allowNull: false
       },
       descricao: {
-        type: Sequelize.STRING(45)
+        type: Sequelize.STRING(45),
+        allowNull: false
+      },
+      isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

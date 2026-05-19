@@ -93,3 +93,5 @@ AtividadesRepository.init({
   sequelize: SequelizeHelper.sequelize,
   tableName: "Atividades",
 })
+
+export default AtividadesRepository;

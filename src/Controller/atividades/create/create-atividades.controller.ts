@@ -1,25 +1,25 @@
 import {
-  Controller,
   HttpRequest,
   HttpResponse,
+  Controller,
 } from "../../../protocol/http.protocol";
+import { CreateAtividadesService } from "../../../Service/atividades.service";
 import { badRequest, success } from "../../../helpers";
-import { CreateContratoService } from "../../../Service/contrato.service";
 
-export class CreateContratoController implements Controller {
+export class CreateAtividadesController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { body } = httpRequest;
 
-      const createContratoService = new CreateContratoService();
+      const createAtividadesService = new CreateAtividadesService();
 
-      const contratoFinalizado = await createContratoService.create(body);
+      const atividadesFinalizado = await createAtividadesService.create(body);
 
       return success({
-        data: contratoFinalizado,
-        message: "Contrato cadastrado com sucesso.",
+        data: atividadesFinalizado,
+        message: "Atividade cadastrada com sucesso",
       });
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof Error) {
         return badRequest(error.message);
       }

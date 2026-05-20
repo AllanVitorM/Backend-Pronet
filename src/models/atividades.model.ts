@@ -6,18 +6,21 @@ import {
   CreationOptional,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
+import ProjetoRepository from "./projetos.model";
 
-class ProjetoRepository extends Model<
-  InferAttributes<ProjetoRepository>,
-  InferCreationAttributes<ProjetoRepository>
+class AtividadesRepository extends Model<
+  InferAttributes<AtividadesRepository>,
+  InferCreationAttributes<AtividadesRepository>
 > {
   declare id: CreationOptional<number>;
+  declare idProjeto: number;
+  declare idAtividadeDependencias: number;
+  declare idMarco: number;
   declare nome: string;
   declare data_inicio_planejada: Date;
   declare data_fim_planejada: Date;
+  declare progresso: number;
   declare status: string;
-  declare numero_pedido: string;
-  declare ART: string;
   declare data_inicio_real: Date | null;
   declare data_fim_real: Date | null;
   declare isDeleted: CreationOptional<boolean>;
@@ -25,12 +28,24 @@ class ProjetoRepository extends Model<
   declare updatedAt: CreationOptional<Date>;
 }
 
-ProjetoRepository.init(
+AtividadesRepository.init(
   {
     id: {
-      type: DataTypes.BIGINT,
-      autoIncrement: true,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    idProjeto: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idAtividadeDependencias: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idMarco: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     nome: {
@@ -45,15 +60,16 @@ ProjetoRepository.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    progresso: {
+      type: DataTypes.DECIMAL(5, 2),
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 100,
+      },
+    },
     status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    numero_pedido: {
-      type: DataTypes.NUMBER,
-      allowNull: false,
-    },
-    ART: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -81,8 +97,18 @@ ProjetoRepository.init(
   },
   {
     sequelize: SequelizeHelper.sequelize,
-    tableName: "Projetos",
+    tableName: "Atividades",
   },
 );
 
-export default ProjetoRepository;
+ProjetoRepository.hasMany(AtividadesRepository, {
+  foreignKey: "idProjeto",
+  as: "atividades"
+});
+
+AtividadesRepository.belongsTo(ProjetoRepository, {
+  foreignKey: "idProjeto",
+  as: "projeto"
+})
+
+export default AtividadesRepository;

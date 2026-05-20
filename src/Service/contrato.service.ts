@@ -1,6 +1,7 @@
 import ContratoRepository from "../models/contrato.model";
 
 interface CreateContratoDTO {
+  idCliente: number;
   escopo_contratual: string;
   valor_total: number;
   data_inicio: string;
@@ -10,6 +11,10 @@ interface CreateContratoDTO {
 
 export class CreateContratoService {
   async create(data: CreateContratoDTO) {
+    if (!data.idCliente) {
+      throw new Error("Nenhum cliente vinculado a esta atividade");
+    }
+
     if (!data.escopo_contratual) {
       throw new Error("É preciso adicionar um escopo contratual");
     }

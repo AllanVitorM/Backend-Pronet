@@ -6,6 +6,7 @@ import {
   CreationOptional,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
+import ColaboradoresRepository from "./colaboradores";
 
 class UsuarioRepository extends Model<
   InferAttributes<UsuarioRepository>,
@@ -24,13 +25,13 @@ class UsuarioRepository extends Model<
 UsuarioRepository.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,
     },
     idColaborador: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     nome: {
@@ -58,5 +59,15 @@ UsuarioRepository.init(
     tableName: "Usuarios",
   },
 );
+
+ColaboradoresRepository.hasMany(UsuarioRepository, {
+  foreignKey: "idColaborador",
+  as: "usuarios"
+});
+
+UsuarioRepository.belongsTo(ColaboradoresRepository, {
+  foreignKey: "idColaborador",
+  as: "colaborador"
+})
 
 export default UsuarioRepository;

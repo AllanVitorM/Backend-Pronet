@@ -20,8 +20,10 @@ export class CreateMaterialController implements Controller {
         message: "Material cadastrado com sucesso.",
       });
     } catch (error: any) {
-      console.error(error);
-      return badRequest(error?.errors || error.message);
+      if (error instanceof Error) {
+        return badRequest(error.message);
+      }
+      return badRequest("Erro inesperado ao processar resposta interna");
     }
   }
 }

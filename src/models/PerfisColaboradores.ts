@@ -65,3 +65,4 @@ PerfisColaboradoresRepository.belongsTo(SindicatoRepository, {
   as: "PerfisColaboradores"
 });
 
+export default PerfisColaboradoresRepository;

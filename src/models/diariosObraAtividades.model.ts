@@ -6,6 +6,10 @@ import {
   CreationOptional,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
+import DiarioObraRepository from "./diarioobra.models";
+import AtividadesRepository from "./atividades.model";
+import ProjetoRepository from "./projetos.model";
+import ResponsaveisRepository from "./responsaveis.model";
 
 class DiariosObraAtividadeRepository extends Model<
   InferAttributes<DiariosObraAtividadeRepository>,
@@ -64,3 +68,38 @@ DiariosObraAtividadeRepository.init(
     tableName: "DiariosObraAtividades",
   },
 );
+
+DiarioObraRepository.hasMany(DiariosObraAtividadeRepository, {
+  foreignKey: "idDiarioObra",
+  as: "atividadesRegistradas",
+});
+DiariosObraAtividadeRepository.belongsTo(DiarioObraRepository, {
+  foreignKey: "idDiarioObra",
+  as: "diarioObra",
+});
+AtividadesRepository.hasMany(DiariosObraAtividadeRepository, {
+  foreignKey: "idAtividade",
+  as: "registroDiarioObra",
+});
+DiariosObraAtividadeRepository.belongsTo(AtividadesRepository, {
+  foreignKey: "idAtividade",
+  as: "atividade",
+});
+ProjetoRepository.hasMany(DiariosObraAtividadeRepository, {
+  foreignKey: "idProjeto",
+  as: "diariosObraAtividades",
+});
+DiariosObraAtividadeRepository.belongsTo(ProjetoRepository, {
+  foreignKey: "idProjeto",
+  as: "projeto",
+});
+ResponsaveisRepository.hasMany(DiariosObraAtividadeRepository, {
+  foreignKey: "idResponsavel",
+  as: "diariosObraAtividades",
+});
+DiariosObraAtividadeRepository.belongsTo(ResponsaveisRepository, {
+  foreignKey: "idResponsavel",
+  as: "responsavel",
+});
+
+export default DiariosObraAtividadeRepository;

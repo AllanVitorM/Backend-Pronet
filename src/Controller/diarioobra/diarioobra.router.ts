@@ -4,6 +4,7 @@ import { CreateDiarioObraController } from "./create/create-diarioobra.controlle
 import { ListDiarioObraController } from "./list/list-diarioobra.controller";
 import { FindDiarioObraController } from "./find/find-diarioobra.controller";
 import { CreateColaboradoresUtilizadosController } from "../colaboradoresUtilizados/create/create-colaboradoresUtilizados.controller";
+import { DiariosObraAtividadesController } from "../DiariosObraAtividades/create/create-diariosObraAtividades.controller";
 
 class DiarioObraRouter {
   public router: Router;
@@ -17,6 +18,10 @@ class DiarioObraRouter {
     this.router.post(
       "/criarDiarioObra",
       adapterRouter(new CreateDiarioObraController()),
+    );
+    this.router.post(
+      "/:idDiarioObra/atividades",
+      adapterRouter(new DiariosObraAtividadesController()),
     );
     this.router.post(
       "/:idDiarioObra/atividades/:idAtividade/colaboradoresUtilizados",

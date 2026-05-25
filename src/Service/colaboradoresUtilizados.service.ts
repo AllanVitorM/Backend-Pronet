@@ -28,7 +28,7 @@ export class CreateColaboradoresUtilizadosService {
         transaction,
       });
       if (!colaborador) {
-        return badRequest("Colaborador informado não existe");
+        throw new Error("Colaborador informado não existe");
       }
 
       const atividade = await AtividadesRepository.findOne({
@@ -39,7 +39,7 @@ export class CreateColaboradoresUtilizadosService {
         transaction,
       });
       if (!atividade) {
-        return badRequest("Atividade informada não existe");
+        throw new Error("Atividade informada não existe");
       }
 
       const projeto = await ProjetoRepository.findOne({
@@ -50,7 +50,7 @@ export class CreateColaboradoresUtilizadosService {
         transaction,
       });
       if (!projeto) {
-        return badRequest("Projeto informado não existe");
+        throw new Error("Projeto informado não existe");
       }
 
       const responsavel = await ResponsaveisRepository.findOne({
@@ -62,7 +62,7 @@ export class CreateColaboradoresUtilizadosService {
       });
 
       if (!responsavel) {
-        return badRequest(
+        throw new Error(
           "Responsável informado não está ligado(a) a este projeto/atividade",
         );
       }
@@ -75,11 +75,11 @@ export class CreateColaboradoresUtilizadosService {
         transaction,
       });
       if (!diarioObra) {
-        return badRequest("Diário de obra não informado ou não existe");
+        throw new Error("Diário de obra não informado ou não existe");
       }
 
       if (!data.hh_real) {
-        return badRequest(
+        throw new Error(
           "É obrigatório adicionar a hora homem dos colaboradores",
         );
       }

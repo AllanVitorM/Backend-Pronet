@@ -7,6 +7,7 @@ import {
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
 import ProjetoRepository from "./projetos.model";
+import AtividadesDependenciaRepository from "./atividades-dependencia.model";
 
 class AtividadesRepository extends Model<
   InferAttributes<AtividadesRepository>,
@@ -109,6 +110,16 @@ ProjetoRepository.hasMany(AtividadesRepository, {
 AtividadesRepository.belongsTo(ProjetoRepository, {
   foreignKey: "idProjeto",
   as: "projeto"
+})
+
+AtividadesDependenciaRepository.hasMany(AtividadesRepository, {
+  foreignKey: "idAtividadeDependencias",
+  as: "atividades"
+});
+
+AtividadesRepository.belongsTo(AtividadesDependenciaRepository, {
+  foreignKey: "idAtividadeDependencias",
+  as: "atividadeDependencias"
 })
 
 export default AtividadesRepository;

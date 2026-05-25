@@ -6,24 +6,21 @@ import {
   CreationOptional,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
-import Atividade from "./atividade.model";
+import AtividadesRepository from "./atividades.model";
 
-class AtividadesDependencia extends Model<
-  InferAttributes<AtividadesDependencia>,
-  InferCreationAttributes<AtividadesDependencia>
+class AtividadesDependenciaRepository extends Model<
+  InferAttributes<AtividadesDependenciaRepository>,
+  InferCreationAttributes<AtividadesDependenciaRepository>
 > {
   declare id: CreationOptional<number>;
   declare idAtividade: number;
-  declare idAtividadeDependencia: number;
   declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
-  declare readonly atividade?: Atividade;
-  declare readonly atividadeDependencia?: Atividade;
 }
 
-AtividadesDependencia.init(
+AtividadesDependenciaRepository.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -32,10 +29,6 @@ AtividadesDependencia.init(
       allowNull: false,
     },
     idAtividade: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    idAtividadeDependencia: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -59,14 +52,16 @@ AtividadesDependencia.init(
   }
 );
 
-// === Relacionamentos ===
-AtividadesDependencia.belongsTo(Atividade, {
+
+AtividadesRepository.hasMany(AtividadesDependenciaRepository, {
+  foreignKey: "idAtividade",
+  as: "AtividadesDependencia",
+});
+
+AtividadesDependenciaRepository.belongsTo(AtividadesRepository, {
   foreignKey: "idAtividade",
   as: "atividade",
 });
-AtividadesDependencia.belongsTo(Atividade, {
-  foreignKey: "idAtividadeDependencia",
-  as: "atividadeDependencia",
-});
 
-export default AtividadesDependencia;
+
+export default AtividadesDependenciaRepository;

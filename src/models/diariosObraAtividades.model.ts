@@ -1,26 +1,27 @@
 import {
   InferAttributes,
   InferCreationAttributes,
-  Model,
   DataTypes,
+  Model,
   CreationOptional,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
 
-class DiarioObraRepository extends Model<
-  InferAttributes<DiarioObraRepository>,
-  InferCreationAttributes<DiarioObraRepository>
+class DiariosObraAtividadeRepository extends Model<
+  InferAttributes<DiariosObraAtividadeRepository>,
+  InferCreationAttributes<DiariosObraAtividadeRepository>
 > {
   declare id: CreationOptional<number>;
-  declare data_registro: Date;
-  declare percentual_atividade: number;
-  declare descricao: string;
+  declare idAtividade: number;
+  declare idProjeto: number;
+  declare idResponsavel: number;
+  declare idDiarioObra: number;
   declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-DiarioObraRepository.init(
+DiariosObraAtividadeRepository.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -28,22 +29,26 @@ DiarioObraRepository.init(
       primaryKey: true,
       allowNull: false,
     },
-    data_registro: {
-      type: DataTypes.DATE,
+    idAtividade: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    percentual_atividade: {
-      type: DataTypes.DECIMAL(5, 2),
+    idProjeto: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-
-    descricao: {
-      type: DataTypes.STRING,
+    idResponsavel: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idDiarioObra: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     isDeleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -54,7 +59,8 @@ DiarioObraRepository.init(
       allowNull: false,
     },
   },
-  { sequelize: SequelizeHelper.sequelize, tableName: "DiarioObra" },
+  {
+    sequelize: SequelizeHelper.sequelize,
+    tableName: "DiariosObraAtividades",
+  },
 );
-
-export default DiarioObraRepository;

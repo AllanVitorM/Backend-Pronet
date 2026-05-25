@@ -1,0 +1,67 @@
+import {
+  HttpRequest,
+  HttpResponse,
+  Controller,
+} from "../../../protocol/http.protocol";
+import { badRequest, success } from "../../../helpers";
+import ColaboradoresUtilizadosRepository from "../../../models/colaboradoresUtilizados.model";
+import ColaboradoresRepository from "../../../models/colaboradores";
+import AtividadesRepository from "../../../models/atividades.model";
+import ResponsaveisRepository from "../../../models/responsaveis.model";
+import ProjetoRepository from "../../../models/projetos.model";
+import DiarioObraRepository from "../../../models/diarioobra.models";
+
+export class ListColaboradorUtilizadosController implements Controller {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+      const { limit = 10, page = 1 } = httpRequest.query || {};
+      const offset = (Number(page) - 1) * Number(limit);
+      const { logged } = httpRequest;
+
+      if (!logged) return badRequest("Usuário não autenticado");
+
+      const { count, rows } =
+        await ColaboradoresUtilizadosRepository.findAndCountAll({
+          distinct: true,
+          limit: Number(limit),
+          offset: offset,
+          where: {
+            isDeleted: false,
+          },
+          include: [
+            {
+              model: ColaboradoresRepository,
+              as: "colaborador",
+            },
+            {
+              model: AtividadesRepository,
+              as: "atividade",
+            },
+            {
+              model: ProjetoRepository,
+              as: "projeto",
+            },
+            {
+              model: ResponsaveisRepository,
+              as: "responsavel",
+            },
+            {
+              model: DiarioObraRepository,
+              as: "diarioObra",
+            },
+          ],
+        });
+      const nPages = Math.ceil(count / Number(limit));
+      return success({
+        data: rows,
+        total: count,
+        nPages,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        return badRequest(error.message);
+      }
+      return badRequest("Erro inesperado ao processar resposta interna");
+    }
+  }
+}

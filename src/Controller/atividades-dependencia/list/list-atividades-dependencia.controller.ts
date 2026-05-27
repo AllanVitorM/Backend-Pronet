@@ -1,7 +1,11 @@
-import { Controller, HttpRequest, HttpResponse } from "../../../protocol/http.protocol";
+import {
+  Controller,
+  HttpRequest,
+  HttpResponse,
+} from "../../../protocol/http.protocol";
 import { badRequest, success } from "../../../helpers";
 import AtividadesDependencia from "../../../models/atividades-dependencia.model";
-import Atividade from "../../../models/atividade.model";
+import AtividadesRepository from "../../../models/atividades.model";
 
 export class ListAtividadesDependenciaController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -17,11 +21,15 @@ export class ListAtividadesDependenciaController implements Controller {
         offset,
         where: { isDeleted: false },
         include: [
-          { model: Atividade, as: "atividade" },
-          { model: Atividade, as: "atividadeDependencia" },
+          { model: AtividadesRepository, as: "atividade" },
+          { model: AtividadesRepository, as: "atividadeDependencia" },
         ],
       });
-      return success({ data: rows, total: count, nPages: Math.ceil(count / Number(limit)) });
+      return success({
+        data: rows,
+        total: count,
+        nPages: Math.ceil(count / Number(limit)),
+      });
     } catch (error) {
       if (error instanceof Error) return badRequest(error.message);
       return badRequest("Erro inesperado");

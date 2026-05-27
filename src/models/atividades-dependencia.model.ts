@@ -14,10 +14,10 @@ class AtividadesDependenciaRepository extends Model<
 > {
   declare id: CreationOptional<number>;
   declare idAtividade: number;
+  declare idAtividadeDependencias: number;
   declare isDeleted: CreationOptional<boolean>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
-
 }
 
 AtividadesDependenciaRepository.init(
@@ -29,6 +29,10 @@ AtividadesDependenciaRepository.init(
       allowNull: false,
     },
     idAtividade: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idAtividadeDependencias: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -49,13 +53,12 @@ AtividadesDependenciaRepository.init(
   {
     sequelize: SequelizeHelper.sequelize,
     tableName: "AtividadesDependencias",
-  }
+  },
 );
-
 
 AtividadesRepository.hasMany(AtividadesDependenciaRepository, {
   foreignKey: "idAtividade",
-  as: "AtividadesDependencia",
+  as: "dependencias",
 });
 
 AtividadesDependenciaRepository.belongsTo(AtividadesRepository, {
@@ -63,5 +66,9 @@ AtividadesDependenciaRepository.belongsTo(AtividadesRepository, {
   as: "atividade",
 });
 
+AtividadesDependenciaRepository.belongsTo(AtividadesRepository, {
+  foreignKey: "idAtividadeDependencia",
+  as: "atividadeDependencia",
+});
 
 export default AtividadesDependenciaRepository;

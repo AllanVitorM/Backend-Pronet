@@ -1,7 +1,7 @@
 import { Controller, HttpRequest, HttpResponse } from "../../../protocol/http.protocol";
 import { badRequest, success } from "../../../helpers";
 import AtividadesDependencia from "../../../models/atividades-dependencia.model";
-import Atividade from "../../../models/atividade.model";
+import AtividadesRepository from "../../../models/atividades.model";
 
 export class FindAtividadesDependenciaController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -10,8 +10,8 @@ export class FindAtividadesDependenciaController implements Controller {
       const dep = await AtividadesDependencia.findOne({
         where: { id, isDeleted: false },
         include: [
-          { model: Atividade, as: "atividade" },
-          { model: Atividade, as: "atividadeDependencia" },
+          { model: AtividadesRepository, as: "atividade" },
+          { model: AtividadesRepository, as: "atividadeDependencia" },
         ],
       });
       if (!dep) return badRequest("Dependência não encontrada");

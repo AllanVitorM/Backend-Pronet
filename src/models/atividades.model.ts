@@ -15,7 +15,6 @@ class AtividadesRepository extends Model<
 > {
   declare id: CreationOptional<number>;
   declare idProjeto: number;
-  declare idAtividadeDependencias: number;
   declare idMarco: number;
   declare nome: string;
   declare data_inicio_planejada: Date;
@@ -38,10 +37,6 @@ AtividadesRepository.init(
       allowNull: false,
     },
     idProjeto: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    idAtividadeDependencias: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -112,14 +107,6 @@ AtividadesRepository.belongsTo(ProjetoRepository, {
   as: "projeto"
 })
 
-AtividadesDependenciaRepository.hasMany(AtividadesRepository, {
-  foreignKey: "idAtividadeDependencias",
-  as: "atividades"
-});
 
-AtividadesRepository.belongsTo(AtividadesDependenciaRepository, {
-  foreignKey: "idAtividadeDependencias",
-  as: "atividadeDependencias"
-})
 
 export default AtividadesRepository;

@@ -9,23 +9,47 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('Marcos', {
+    await queryInterface.createTable("HistoricosBaseCustoPerfil", {
       id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
-      data_prevista: {
+      idPerfilColaborador: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      date_inicio_vigencia: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      data_real: {
+      data_fim_vigencia: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      descricao: {
-        type: Sequelize.STRING,
+      base_salarial: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      base_beneficios: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      fm_adicional_noturno: {
+        type: Sequelize.DECIMAL(5, 2),
+        allowNull: false,
+      },
+      fm_adicional_periculosidade: {
+        type: Sequelize.DECIMAL(5, 2),
+        allowNull: false,
+      },
+      fm_adicional_insalubridade: {
+        type: Sequelize.DECIMAL(5, 2),
+        allowNull: false,
+      },
+      CH_mensal: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       isDeleted: {
@@ -40,7 +64,7 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-      }
+      },
     })
   },
 
@@ -51,6 +75,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('Marcos')
+    await queryInterface.dropTable('HistoricosBaseCustoPerfil')
   }
 };

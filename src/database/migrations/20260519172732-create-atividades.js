@@ -2,56 +2,67 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Atividade', {
+    await queryInterface.createTable('Atividades', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true,
+        allowNull: false,
       },
       idProjeto: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'Projetos',   // nome da tabela de projetos (supondo que exista)
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+      },
+      idMarco: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       nome: {
-        type: Sequelize.STRING(100),
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      descricao: {
-        type: Sequelize.STRING(255),
-        allowNull: true
+      data_inicio_planejada: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      data_fim_planejada: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      progresso: {
+        type: Sequelize.DECIMAL(5, 2),
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+          min: 0,
+          max: 100,
+        },
       },
       status: {
-        type: Sequelize.STRING(45),
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      data_inicio: {
+      data_inicio_real: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true,
       },
-      data_fim: {
+      data_fim_real: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true,
       },
       isDeleted: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
       },
       createdAt: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
       },
       updatedAt: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
-      }
+      },
     });
   },
 

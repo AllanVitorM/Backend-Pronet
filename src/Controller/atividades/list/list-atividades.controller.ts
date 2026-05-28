@@ -11,15 +11,24 @@ export class ListAtividadesController implements Controller {
     try {
       const { limit = 10, page = 1 } = httpRequest.query || {};
       const offset = (Number(page) - 1) * Number(limit);
-      const { logged } = httpRequest;
+      const { idProjeto } = httpRequest.query;
 
-      if (!logged) return badRequest("Usuário não autenticado");
+      if (!idProjeto) {
+        return badRequest("É necessário informar o projeto");
+      }
 
+      const idProjetoNumber = Number(idProjeto);
+
+      if (isNaN(idProjetoNumber)) {
+        return badRequest("O idProjeto informado é inválido");
+      }
+      
       const { count, rows } = await AtividadesRepository.findAndCountAll({
         distinct: true,
         limit: Number(limit),
         offset: offset,
         where: {
+          idProjeto: Number(idProjeto),
           isDeleted: false,
         },
       });

@@ -7,6 +7,7 @@ import {
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
 import ClienteRepository from "./cliente.model";
+import ProjetosContratosRepository from "./ProjetosContratos";
 
 class ContratoRepository extends Model<
   InferAttributes<ContratoRepository>,
@@ -84,6 +85,7 @@ ClienteRepository.hasMany(ContratoRepository, {
 ContratoRepository.belongsTo(ClienteRepository, {
   foreignKey: "idCliente",
   as: "cliente",
-})
+});
+
 
 export default ContratoRepository;

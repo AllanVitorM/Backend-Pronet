@@ -14,9 +14,6 @@ export class ListContratoController implements Controller {
     try {
       const { limit = 10, page = 1 } = httpRequest?.query || {};
       const offset = (Number(page) - 1) * Number(limit);
-      const { logged } = httpRequest;
-
-      if (!logged) return badRequest("Usuário não autenticado");
 
       const { count, rows } = await ContratoRepository.findAndCountAll({
         distinct: true,

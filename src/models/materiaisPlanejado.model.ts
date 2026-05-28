@@ -55,7 +55,7 @@ MateriaisPlanejadoRepository.init({
   },
 }, {
   sequelize: SequelizeHelper.sequelize,
-  tableName: "materiaisPlanejado",
+  tableName: "MateriaisPlanejado",
 });
 
 MaterialRepository.hasMany(MateriaisPlanejadoRepository, {

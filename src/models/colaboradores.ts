@@ -6,6 +6,7 @@ import {
   DataTypes,
 } from "sequelize";
 import { SequelizeHelper } from "./sequelize-helper";
+import PerfisColaboradoresRepository from "./PerfisColaboradores";
 
 class ColaboradoresRepository extends Model<
   InferAttributes<ColaboradoresRepository>,
@@ -62,6 +63,14 @@ ColaboradoresRepository.init({
   tableName: "Colaboradores"
 });
 
+PerfisColaboradoresRepository.hasMany(ColaboradoresRepository, {
+  foreignKey: "idPerfilColaborador",
+  as: "colaboradores"
+});
 
+ColaboradoresRepository.belongsTo(PerfisColaboradoresRepository, {
+  foreignKey: "idPerfilColaborador",
+  as: "perfilColaborador"
+})
 
 export default ColaboradoresRepository;

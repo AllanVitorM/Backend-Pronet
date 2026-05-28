@@ -7,7 +7,8 @@ import materiaisRouter from "./Controller/materiais/materiais.router";
 import clienteRouter from "./Controller/cliente/cliente.router";
 import atividadesRouter from "./Controller/atividades/atividades.router";
 import atividadesDependenciaRouter from "./Controller/atividades-dependencia/atividades-dependencia.router";
-
+import marcoRouter from "./Controller/marco/marco.router";
+import colaboradoresRouter from "./Controller/colaboradores/colaboradores.router";
 
 class Application {
   public application: express.Application;
@@ -34,6 +35,8 @@ class Application {
       "/atividades-dependencia/",
       atividadesDependenciaRouter,
     );
+    this.application.use("/marco/", marcoRouter);
+    this.application.use("/colaboradores/", colaboradoresRouter);
   }
 }
 

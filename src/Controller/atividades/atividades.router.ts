@@ -9,6 +9,10 @@ import { FindMateriaisUtilizados } from "../materiais-utilizados/find/find-mater
 import { CreateMateriaisPlanejadoController } from "../materiais-planejado/create/create.materiaisPlanejado.controller";
 import { ListMateriaisPlanejadoController } from "../materiais-planejado/list/list-materiaisPlanejado.controller";
 import { FindMateriaisPlanejadoController } from "../materiais-planejado/find/find-materiaisPlanejado.controller";
+import { CreatePerfisPlanejadoController } from "../perfisPlanejado/create/create-perfisPlanejado.controller";
+import { ListPerfisPlanejadoController } from "../perfisPlanejado/list/list-perfisPlanejado.controller";
+import { FindPerfisPlanejadoController } from "../perfisPlanejado/find/find-perfisPlanejado.controller";
+
 class AtividadesRouter {
   public router: Router;
 
@@ -37,6 +41,21 @@ class AtividadesRouter {
       adapterRouter(new CreateMateriaisPlanejadoController()),
     );
 
+    this.router.post(
+      "/:idAtividade/perfisPlanejado",
+      adapterRouter(new CreatePerfisPlanejadoController()),
+    );
+
+    this.router.get(
+      "/:idAtividade/perfisPlanejado",
+      adapterRouter(new ListPerfisPlanejadoController()),
+    );
+
+    this.router.get(
+      "/perfisPlanejado/:id",
+      adapterRouter(new FindPerfisPlanejadoController()),
+    );
+
     this.router.get(
       "/:idAtividade/mateiraisUtilizados",
       adapterRouter(new ListMaterialUtilizadoController()),
@@ -46,9 +65,6 @@ class AtividadesRouter {
       "/:idAtividade/materiaisPlanejado",
       adapterRouter(new ListMateriaisPlanejadoController()),
     );
-
-    this.router.get("/:id", adapterRouter(new FindAtividadesController()));
-
     this.router.get(
       "/materiaisPlanejado/:id",
       adapterRouter(new FindMateriaisPlanejadoController()),
@@ -58,6 +74,8 @@ class AtividadesRouter {
       "/materiaisUtilizados/:id",
       adapterRouter(new FindMateriaisUtilizados()),
     );
+
+    this.router.get("/:id", adapterRouter(new FindAtividadesController()));
   }
 }
 

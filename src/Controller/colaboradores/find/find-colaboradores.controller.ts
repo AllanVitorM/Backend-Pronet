@@ -1,27 +1,35 @@
 import {
-  Controller,
   HttpRequest,
   HttpResponse,
+  Controller,
 } from "../../../protocol/http.protocol";
 import { badRequest, success } from "../../../helpers";
-import MaterialRepository from "../../../models/material.model";
+import ColaboradoresRepository from "../../../models/colaboradores";
+import PerfisColaboradoresRepository from "../../../models/PerfisColaboradores";
 
-export class FindMateriaisController implements Controller {
+export class FindColaboradoresController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { id } = httpRequest.params;
 
-      const materiais = await MaterialRepository.findOne({
+      const colaboradores = await ColaboradoresRepository.findOne({
         where: {
           id,
           isDeleted: false,
         },
+        include: [
+          {
+            model: PerfisColaboradoresRepository,
+            as: "perfilColaborador",
+          },
+        ],
       });
-
-      if (!materiais) return badRequest("Materiais não encontrados");
+      if (!colaboradores) {
+        return badRequest("Não há um diário de obra.");
+      }
 
       return success({
-        data: materiais,
+        data: colaboradores,
       });
     } catch (error) {
       if (error instanceof Error) {

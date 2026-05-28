@@ -3,19 +3,26 @@ import {
   HttpResponse,
   Controller,
 } from "../../../protocol/http.protocol";
-import { CreateDiarioObraService } from "../../../Service/diarioobra.service";
 import { badRequest, success } from "../../../helpers";
+import { MarcoRepository } from "../../../models/marco.model";
 
-export class CreateDiarioObraController implements Controller {
+export class FindMarcoController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { body } = httpRequest;
+      const { id } = httpRequest.params;
 
-      const createDiarioObraService = new CreateDiarioObraService();
-      const diarioobraFinalizado = await createDiarioObraService.create(body);
+      const marco = await MarcoRepository.findOne({
+        where: {
+          id,
+          isDeleted: false,
+        },
+      });
+      if (!marco) {
+        return badRequest("Não há um diário de obra.");
+      }
+
       return success({
-        data: diarioobraFinalizado,
-        message: " Diário de obra cadastrada com sucesso",
+        data: marco,
       });
     } catch (error) {
       if (error instanceof Error) {

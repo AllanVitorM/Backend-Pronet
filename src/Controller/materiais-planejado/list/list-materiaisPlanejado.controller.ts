@@ -11,11 +11,6 @@ export class ListMateriaisPlanejadoController implements Controller {
     try {
       const { limit = 10, page = 1 } = httpRequest.query || {};
       const offset = (Number(page) - 1) * Number(limit);
-      const { logged } = httpRequest;
-
-      if (!logged) {
-        return badRequest("Usuário não autenticado");
-      }
 
       const { rows, count } =
         await MateriaisPlanejadoRepository.findAndCountAll({

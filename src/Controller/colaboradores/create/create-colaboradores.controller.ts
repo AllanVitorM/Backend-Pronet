@@ -3,19 +3,20 @@ import {
   HttpResponse,
   Controller,
 } from "../../../protocol/http.protocol";
-import { CreateDiarioObraService } from "../../../Service/diarioobra.service";
 import { badRequest, success } from "../../../helpers";
+import { ColaboradoresService } from "../../../Service/colaboradores.service";
 
-export class CreateDiarioObraController implements Controller {
+export class CreateColaboradoresController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { body } = httpRequest;
 
-      const createDiarioObraService = new CreateDiarioObraService();
-      const diarioobraFinalizado = await createDiarioObraService.create(body);
+      const createColaboradoresService = new ColaboradoresService();
+      const colaboradores = await createColaboradoresService.create(body);
+
       return success({
-        data: diarioobraFinalizado,
-        message: " Diário de obra cadastrada com sucesso",
+        data: colaboradores,
+        message: "Colaborador cadastrado com sucesso",
       });
     } catch (error) {
       if (error instanceof Error) {

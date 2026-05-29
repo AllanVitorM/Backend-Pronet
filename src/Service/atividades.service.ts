@@ -1,5 +1,7 @@
 import AtividadesDependenciaRepository from "../models/atividades-dependencia.model";
 import AtividadesRepository from "../models/atividades.model";
+import { MarcoRepository } from "../models/marco.model";
+import ProjetoRepository from "../models/projetos.model";
 
 interface CreateAtividadesDTO {
   idProjeto: number;
@@ -23,6 +25,28 @@ export class CreateAtividadesService {
     }
     if (!data.nome) {
       throw new Error("É necessário um nome para esta atividade");
+    }
+
+    const projeto = await ProjetoRepository.findOne({
+      where: {
+        id: data.idProjeto,
+        isDeleted: false,
+      },
+    });
+
+    if (!projeto) {
+      throw new Error("Projeto não existente");
+    }
+
+    const marco = await MarcoRepository.findOne({
+      where: {
+        id: data.idMarco,
+        isDeleted: false,
+      },
+    });
+
+    if (!marco) {
+      throw new Error("Marco não existente ou não pertence a esta atividade.");
     }
 
     const dataInicio = new Date(data.data_inicio_planejada);

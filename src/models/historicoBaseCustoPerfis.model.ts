@@ -15,7 +15,7 @@ class HistoricosBaseCustoPerfilRepository extends Model<
 > {
   declare id: CreationOptional<number>;
   declare idPerfilColaborador: number;
-  declare date_inicio_vigencia: Date;
+  declare data_inicio_vigencia: Date;
   declare data_fim_vigencia: Date;
   declare base_salarial: number;
   declare base_beneficios: number;
@@ -40,7 +40,7 @@ HistoricosBaseCustoPerfilRepository.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    date_inicio_vigencia: {
+    data_inicio_vigencia: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -99,5 +99,7 @@ PerfisColaboradoresRepository.hasMany(HistoricosBaseCustoPerfilRepository, {
 
 HistoricosBaseCustoPerfilRepository.belongsTo(PerfisColaboradoresRepository, {
   foreignKey: "idPerfilColaborador",
-  as: "historico",
+  as: "perfilColaborador",
 });
+
+export default HistoricosBaseCustoPerfilRepository;

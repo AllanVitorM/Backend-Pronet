@@ -5,9 +5,24 @@
     "strict": true,
     "esModuleInterop": true,
 
+    "rootDir": "./src",
+    "outDir": "./dist",
+
     "types": ["node", "jest"],
 
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "jest.setup.ts",
+    "jest.config.ts",
+    "jest.config.unit.ts",
+    "jest.config.integration.ts"
+  ]
 }

@@ -1,4 +1,4 @@
-import { SequelizeHelper } from "./src/model/sequelize-helper";
+import { SequelizeHelper } from "./src/models/sequelize-helper";
 import http from "http";
 
 let server: http.Server | undefined;

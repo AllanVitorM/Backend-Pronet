@@ -26,6 +26,14 @@ class Application {
   }
 
   private routers() {
+
+    this.application.get("/ping" , (req, res) => {
+      return res.status(200).json({
+        status: "ok",
+        message: "pong",
+        timestamp: new Date().toISOString()
+      })
+    })
     this.application.use("/contrato/", contratoRouter);
     this.application.use("/projetos/", projetosRouter);
     this.application.use("/usuarios/", usuariosRouter);

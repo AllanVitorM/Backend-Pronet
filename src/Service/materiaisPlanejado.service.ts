@@ -54,18 +54,18 @@ export class MateriaisPlanejadoService {
         throw new Error("Atividade informada não existe");
       }
 
-      const validacao = await MateriaisPlanejadoRepository.findOne({
-        where: {
-          idAtividade: data.idAtividade,
-          idMaterial: data.idMaterial,
-          isDeleted: false,
-        },
-        transaction,
-      });
+      // const validacao = await MateriaisPlanejadoRepository.findOne({
+      //   where: {
+      //     idAtividade: data.idAtividade,
+      //     idMaterial: data.idMaterial,
+      //     isDeleted: false,
+      //   },
+      //   transaction,
+      // });
 
-      if (validacao) {
-        throw new Error("Este material já foi planejado para esta atividade");
-      }
+      // if (validacao) {
+      //   throw new Error("Este material já foi planejado para esta atividade");
+      // }
 
       const materiaisPlanejado = await MateriaisPlanejadoRepository.create(
         {

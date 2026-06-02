@@ -25,6 +25,8 @@
     "test:unit": "dotenv -e .env -- jest --runInBand --config ./jest.config.unit.ts",
     "test:integration": "dotenv -e .env -- jest --runInBand --config ./jest.config.integration.ts",
     "prepare": "husky",
+    "build": "tsc",
+   "start": "node dist/server.js",
     "start:dev": "dotenv -e .env -- tsx watch ./src/server.ts",
     "db:create": "dotenv -e .env npx sequelize db:create",
     "db:migrate": "dotenv -e .env npx sequelize db:migrate",
@@ -41,6 +43,7 @@
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.8"
+    "sequelize": "^6.37.8",
+    "tsx": "^4.21.0"
   }
 }

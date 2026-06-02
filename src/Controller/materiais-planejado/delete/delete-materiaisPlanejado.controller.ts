@@ -5,31 +5,31 @@ import {
 } from "../../../protocol/http.protocol";
 import { badRequest, success } from "../../../helpers";
 import MateriaisPlanejadoRepository from "../../../models/materiaisPlanejado.model";
-import MaterialRepository from "../../../models/material.model";
 
-export class FindMateriaisPlanejadoController implements Controller {
+export class DeleteMateriaisPlanejadoController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { id } = httpRequest.params;
 
-      const planejado = await MateriaisPlanejadoRepository.findOne({
-        where: {
-          id: id,
-          isDeleted: false,
-        },
-        include: [
-          {
-            model: MaterialRepository,
-            as: "material",
-          },
-        ],
-      });
-      if (!planejado) {
-        return badRequest("O material planejado não existe");
+      if (!id) {
+        return badRequest("É necessário informar o ID do material planejado");
       }
 
+      const planejado = await MateriaisPlanejadoRepository.findOne({
+        where: {
+          id: Number(id),
+          isDeleted: false,
+        },
+      });
+
+      if (!planejado) {
+        return badRequest("Material planejado não encontrado");
+      }
+
+      await planejado.update({ isDeleted: true });
+
       return success({
-        data: planejado,
+        message: "Material planejado removido com sucesso",
       });
     } catch (error) {
       if (error instanceof Error) {

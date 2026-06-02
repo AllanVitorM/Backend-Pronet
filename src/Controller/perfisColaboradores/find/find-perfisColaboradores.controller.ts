@@ -4,32 +4,33 @@ import {
   Controller,
 } from "../../../protocol/http.protocol";
 import { badRequest, success } from "../../../helpers";
-import MateriaisPlanejadoRepository from "../../../models/materiaisPlanejado.model";
-import MaterialRepository from "../../../models/material.model";
+import PerfisColaboradoresRepository from "../../../models/PerfisColaboradores";
+import SindicatoRepository from "../../../models/sindicato";
 
-export class FindMateriaisPlanejadoController implements Controller {
+export class FindPerfisColaboradoresController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { id } = httpRequest.params;
 
-      const planejado = await MateriaisPlanejadoRepository.findOne({
+      const perfisColaborador = await PerfisColaboradoresRepository.findOne({
         where: {
           id: id,
           isDeleted: false,
         },
         include: [
           {
-            model: MaterialRepository,
-            as: "material",
+            model: SindicatoRepository,
+            as: "sindicato",
           },
         ],
       });
-      if (!planejado) {
-        return badRequest("O material planejado não existe");
+
+      if (!perfisColaborador) {
+        return badRequest("Perfil colaborador não encontrado");
       }
 
       return success({
-        data: planejado,
+        data: perfisColaborador,
       });
     } catch (error) {
       if (error instanceof Error) {

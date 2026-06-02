@@ -9,18 +9,14 @@ import { MateriaisPlanejadoService } from "../../../Service/materiaisPlanejado.s
 export class CreateMateriaisPlanejadoController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { body, logged, params } = httpRequest;
-
-      if (!logged) {
-        return badRequest("Usuário não autenticado");
-      }
+      const { body, params } = httpRequest;
 
       const { idAtividade } = params;
 
       if (!idAtividade) {
         return badRequest("É necessário informar a atividade");
       }
-      
+
       const createMateriaisPlanejadoService = new MateriaisPlanejadoService();
 
       const materiaisPlanejado = await createMateriaisPlanejadoService.create({

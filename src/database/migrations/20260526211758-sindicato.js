@@ -11,7 +11,7 @@ module.exports = {
      */
     await queryInterface.createTable('Sindicato', {
       id: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,

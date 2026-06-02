@@ -12,7 +12,7 @@ export class CreatePerfisPlanejadoController implements Controller {
       const { body, params } = httpRequest;
 
       const { idAtividade } = params;
-      
+
       if (!idAtividade) {
         return badRequest("É necessário informar a atividade");
       }

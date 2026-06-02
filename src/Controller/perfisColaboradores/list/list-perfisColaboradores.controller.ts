@@ -1,35 +1,39 @@
+import PerfisColaboradoresRepository from "../../../models/PerfisColaboradores";
+import { badRequest, success } from "../../../helpers";
 import {
   HttpRequest,
   HttpResponse,
   Controller,
 } from "../../../protocol/http.protocol";
-import { badRequest, success } from "../../../helpers";
-import MateriaisPlanejadoRepository from "../../../models/materiaisPlanejado.model";
-import MaterialRepository from "../../../models/material.model";
+import SindicatoRepository from "../../../models/sindicato";
 
-export class ListMateriaisPlanejadoController implements Controller {
+export class ListPerfisColaboradoresController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { limit = 10, page = 1 } = httpRequest.query || {};
-      const offset = (Number(page) - 1) * Number(limit);
-      const { idAtividade } = httpRequest.params;
+      const { idSindicato } = httpRequest.params;
 
-      const { rows, count } =
-        await MateriaisPlanejadoRepository.findAndCountAll({
+      if (!idSindicato) {
+        return badRequest("É necessário informar o sindicato");
+      }
+
+      const offset = (Number(page) - 1) * Number(limit);
+
+      const { count, rows } =
+        await PerfisColaboradoresRepository.findAndCountAll({
           distinct: true,
-          offset: offset,
           limit: Number(limit),
+          offset: offset,
           where: {
-            idAtividade: Number(idAtividade),
+            idSindicato: Number(idSindicato),
             isDeleted: false,
           },
           include: [
             {
-              model: MaterialRepository,
-              as: "material",
+              model: SindicatoRepository,
+              as: "sindicato",
             },
           ],
-          order: [["createdAt", "DESC"]],
         });
       const nPages = Math.ceil(count / Number(limit));
 

@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Materiais', {
-      idMaterial: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -33,6 +33,11 @@ module.exports = {
       unidade_medida: {
         type: Sequelize.STRING(45),
         allowNull: false,
+      },
+      isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
         type: Sequelize.DATE,

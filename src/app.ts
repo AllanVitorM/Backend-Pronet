@@ -10,6 +10,8 @@ import atividadesDependenciaRouter from "./Controller/atividades-dependencia/ati
 import marcoRouter from "./Controller/marco/marco.router";
 import colaboradoresRouter from "./Controller/colaboradores/colaboradores.router";
 import custosRouter from "./Controller/custos/custos.router";
+import perfisResponsaveisRouter from "./Controller/perfisResponsaveis/perfisResponsaveis.router";
+import perfisColaboradoresRouter from "./Controller/perfisColaboradores/perfisColaboradores.router";
 
 class Application {
   public application: express.Application;
@@ -47,6 +49,8 @@ class Application {
     this.application.use("/marco/", marcoRouter);
     this.application.use("/colaboradores/", colaboradoresRouter);
     this.application.use("/custos/", custosRouter);
+    this.application.use("/perfisResponsaveis", perfisResponsaveisRouter);
+    this.application.use("/perfilColaboradores", perfisColaboradoresRouter)
   }
 }
 

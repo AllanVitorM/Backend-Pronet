@@ -9,11 +9,7 @@ import { CreateMateriaisUtilizadosService } from "../../../Service/materiaisUtil
 export class CreateMaterialUtilizadoController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { body, logged, params } = httpRequest;
-
-      if (!logged) {
-        return badRequest("Usuário não autenticado");
-      }
+      const { body, params } = httpRequest;
 
       const { idAtividade } = params;
 

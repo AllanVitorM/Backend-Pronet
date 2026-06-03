@@ -13,9 +13,6 @@ export class ListPerfisColaboradoresController implements Controller {
       const { limit = 10, page = 1 } = httpRequest.query || {};
       const { idSindicato } = httpRequest.params;
 
-      if (!idSindicato) {
-        return badRequest("É necessário informar o sindicato");
-      }
 
       const offset = (Number(page) - 1) * Number(limit);
 
@@ -25,7 +22,6 @@ export class ListPerfisColaboradoresController implements Controller {
           limit: Number(limit),
           offset: offset,
           where: {
-            idSindicato: Number(idSindicato),
             isDeleted: false,
           },
           include: [

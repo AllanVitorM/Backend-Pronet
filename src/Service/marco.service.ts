@@ -1,19 +1,19 @@
 import { MarcoRepository } from "../models/marco.model";
 
 interface CreateMarcoDTO {
-  data_prevista: Date;
-  data_real: Date;
+  data_prevista: string;
+  data_real: string;
   descricao: string;
 }
 
 export class MarcoService {
   async create(data: CreateMarcoDTO) {
     try {
-      if (data.data_prevista) {
+      if (!data.data_prevista) {
         throw new Error("É necessário uma data prevista para o marco");
       }
 
-      if (data.data_real) {
+      if (!data.data_real) {
         throw new Error("É necessário de uma data real para o marco");
       }
 

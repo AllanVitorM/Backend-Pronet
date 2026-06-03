@@ -14,10 +14,15 @@ module.exports = {
     */
     await queryInterface.bulkInsert('PerfisResponsaveis', [{
       nome: "Gerente",
-
+      descricao: "any_describre",
+      isDeleted: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       nome: "Supervisor",
+      descricao: "any_describe",
+      isDeleted: false,
       createdAt: new Date(),
       updatedAt: new Date()
     }])

@@ -57,12 +57,12 @@ PerfisColaboradoresRepository.init({
 
 SindicatoRepository.hasMany(PerfisColaboradoresRepository, {
   foreignKey: "idSindicato",
-  as: "sindicato",
+  as: "PerfisColaboradores",
 })
 
 PerfisColaboradoresRepository.belongsTo(SindicatoRepository, {
   foreignKey: "idSindicato",
-  as: "PerfisColaboradores"
+  as: "sindicato"
 });
 
 export default PerfisColaboradoresRepository;

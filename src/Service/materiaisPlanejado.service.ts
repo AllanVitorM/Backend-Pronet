@@ -72,6 +72,7 @@ export class MateriaisPlanejadoService {
           idAtividade: data.idAtividade,
           idMaterial: data.idMaterial,
           quantidade_planejada: data.quantidade_planejada,
+          isDeleted: false,
         },
         {
           transaction,
